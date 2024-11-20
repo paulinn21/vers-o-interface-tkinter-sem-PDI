@@ -44,23 +44,9 @@ def cadastro() :
                         usuarios[cpf] = {"nome" : nome, "senha" : senha}
                         messagebox.showinfo("Sucesso!", "Usuário cadastrado com sucesso!")
 
-                        #chamando função mostrar_imagem p/ tab2
-                        mostrar_imagem(tab2,imagem)
-
                         tabControl.add(tab2, text ='Login')
                         tabControl.hide(tab1)
                         
-
-                        label_dados= ttk.Label(tab2, text=f"Olá, {nome}. Faça o Login abaixo:", font = ("Arial", 14, "bold"))
-                        label_dados.pack(pady=10)
-
-                        tk.Label(tab2, text="CPF:").pack(anchor = "w", padx=5, pady=5)
-                        login_cpf = tk.Entry(tab2)
-                        login_cpf.pack(anchor = "w",padx=5 )
-
-                        tk.Label(tab2, text="Senha:").pack(anchor = "w", padx=5, pady=5)
-                        login_senha = tk.Entry(tab2)
-                        login_senha.pack(anchor = "w",padx=5)
                     else:
                         messagebox.showwarning("Erro", "Sua senha deve conter ao menor um síbolo (!@#$%*).")
                         return 
@@ -79,6 +65,9 @@ def login():
     if cpf in usuarios and usuarios[cpf]["senha"] == senha:
         nome = usuarios[cpf]["nome"]
         messagebox.showinfo("Bem-vindo!", f"Login realizado com sucesso! Olá, {nome}.")
+
+        tabControl.add(tab3, text ='PDI')
+        tabControl.hide(tab2)
 
     else:
         messagebox.showerror("Erro", "CPF ou senha inválidos.")
@@ -100,9 +89,10 @@ janela.geometry("1000x500")
 tabControl = ttk.Notebook(janela)
 tabControl.pack(expand=True, fill = "both")
 
-# Criamos 2 frames (guias)
+# Criamos 3 frames (guias)
 tab1 = ttk.Frame(tabControl)
 tab2 = ttk.Frame(tabControl)
+tab3 = ttk.Frame(tabControl)
 
 # Adicionamos os frames ao notebook
 tabControl.add(tab1, text ='Cadastro')
@@ -145,7 +135,7 @@ botão_lexistente.pack( anchor = "center", pady=10)
 mostrar_imagem(tab2,imagem)
 
 #texto login
-tk.Label(tab2, text="Realize o login abaixo:" , font = ("Arial", 12, "bold")).pack(padx=5,pady=10)
+tk.Label( tab2, text=f"Olá! Realize o login abaixo:" , font = ("Arial", 12, "bold")). pack(padx=5,pady=10)
 
 #texto de cpf login
 tk.Label(tab2, text="CPF:").pack(anchor = "w", padx=5, pady=5)
@@ -162,5 +152,12 @@ botão_login.pack( anchor = "w",padx=5, pady=10)
 
 botão_nc = tk.Button(tab2, text="Fazer Cadastro", command = cadastro_nc)
 botão_nc.pack( anchor = "center", pady=10)
+
+#chamando função mostrar_imagem p/ tab3
+mostrar_imagem(tab3,imagem)
+
+#texto PDI
+tk.Label(tab3,text=f"Bem vindo ao seu Plano de Desenvolvimento Individual! Preencha os campos abaixo:", font = ("Arial", 12, "bold")).pack(padx=5, pady=10)
+
 
 janela.mainloop()
